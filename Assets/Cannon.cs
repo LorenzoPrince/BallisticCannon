@@ -10,6 +10,8 @@ public class Cannon : MonoBehaviour
     [SerializeField] private float shootForce = 700f;
     [SerializeField] private Slider angleSliderx;
     [SerializeField] private Slider angleSliderz;
+
+
     void Start()
     {
         
