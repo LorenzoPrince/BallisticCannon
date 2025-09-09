@@ -16,10 +16,13 @@ public class Cannon : MonoBehaviour
     [SerializeField] private Slider forceSlider;
     [SerializeField] private TMP_Text forceText;
 
+    [SerializeField] private List<GameObject> projectilePrefabs; 
+    [SerializeField] private TMP_Dropdown projectileDropdown;
 
     void Start()
     {
-        // Asignar valor inicial si el slider está conectado
+  
+
         if (forceSlider != null)
         {
             forceSlider.value = shootForce;
@@ -38,7 +41,18 @@ public class Cannon : MonoBehaviour
     }
     public void shoot() 
     {
-        GameObject cannonball = Instantiate(cannonballprefab, firepoint.position, firepoint.rotation);
+   
+        int index = projectileDropdown != null ? projectileDropdown.value : 0;      // Elegir proyectil según el dropdown
+
+        if (index < 0 || index >= projectilePrefabs.Count)
+        {
+            Debug.LogWarning("Índice de proyectil fuera de rango");
+            return;
+        }
+
+        GameObject selectedProjectile = projectilePrefabs[index];
+
+        GameObject cannonball = Instantiate(selectedProjectile, firepoint.position, firepoint.rotation);
         Rigidbody rb = cannonball.GetComponent<Rigidbody>();
         rb.AddForce(firepoint.forward * shootForce); //hace que el adelante sea el adelante del spawn
     }
