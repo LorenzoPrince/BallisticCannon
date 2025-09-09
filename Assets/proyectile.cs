@@ -12,20 +12,16 @@ public class protectile : MonoBehaviour
 
     private static int piecesDestroyed = 0;
 
-    public Text reportText;
+    private ShotManager shotManager;
 
 
-    private float launchTime;
 
-    public void SetLaunchTime(float time)
-    {
-        launchTime = time;
-    }
 
     private void Start()
     {
         // Iniciar el tiempo de vuelo
         piecesDestroyed = 0;
+        shotManager = FindObjectOfType<ShotManager>();
         StartCoroutine(TrackFlightTime());
     }
 
@@ -39,33 +35,34 @@ public class protectile : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log($"Tiempo de vuelo: {flightTime} segundos");
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (hasCollided) return; // Evitar múltiples colisiones
+        if (hasCollided) return;
         hasCollided = true;
 
-  
         impactPoint = collision.contacts[0].point;
         relativeVelocity = collision.relativeVelocity;
         collisionImpulse = collision.impulse.magnitude;
 
-        Debug.Log($"Punto de impacto: {impactPoint}");
-        Debug.Log($"Velocidad relativa: {relativeVelocity}");
-        Debug.Log($"Impulso de colisión: {collisionImpulse}");
-
-   
         if (collision.gameObject.CompareTag("Destructible"))
         {
             piecesDestroyed++;
-            Debug.Log("¡Pieza derribada!");
-            ShowReport();
-            Destroy(gameObject, 0.1f);
         }
 
-   
-    }
+        if (shotManager != null)
+        {
+            shotManager.ShowReport(
+                flightTime,
+                impactPoint,
+                relativeVelocity.magnitude,
+                collisionImpulse,
+                piecesDestroyed
+            );
+        }
 
+        Destroy(gameObject, 0.1f);
+    }
 }
