@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "729643269057",
+    "firebase_url": "https://ballisticcannon-c33e5-default-rtdb.firebaseio.com",
+    "project_id": "ballisticcannon-c33e5",
+    "storage_bucket": "ballisticcannon-c33e5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729643269057:android:97324cf0813ed6d5ee0d40",
+        "android_client_info": {
+          "package_name": "com.LordStrong.BallisticCannon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6zIC9UzII2PbeG9gDRFycMAMXU6yBUtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
